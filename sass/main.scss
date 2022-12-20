@@ -1,0 +1,150 @@
+// font-family: 'Poppins', sans-serif;
+@use "./colors" as c;
+
+@mixin colored-line($color) {
+	content: "";
+	position: absolute;
+	width: 375px;
+	height: 3px;
+	background-color: $color;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+	font-family: "Poppins", sans-serif;
+}
+body {
+	background-color: c.$lightgray;
+}
+
+main {
+	margin: 90px 30px;
+	.heading {
+		margin: 0 auto;
+		height: 250px;
+		// width: 375px;
+		max-width: 525px;
+		text-align: center;
+		h1 {
+			color: c.$darkblue;
+			font-size: 2.4rem;
+			font-weight: 200;
+		}
+		h2 {
+			margin-bottom: 10px;
+			color: c.$darkblue;
+			font-size: 2.4rem;
+			font-weight: 700;
+		}
+		p {
+			color: c.$grayishblue;
+			font-size: 1.5rem;
+		}
+	}
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		&__card {
+			position: relative;
+			height: 250px;
+			width: 350px;
+			margin-bottom: -15px;
+			transform: scale(0.85);
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+			.content {
+				padding: 30px;
+				h3 {
+					margin-bottom: 5px;
+					color: c.$darkblue;
+					font-size: 2.4rem;
+				}
+				p {
+					color: c.$grayishblue;
+					font-size: 1.5rem;
+				}
+				img {
+					position: absolute;
+					right: 30px;
+					bottom: 30px;
+				}
+			}
+			&--supervisor::before {
+				@include colored-line(c.$cyan);
+			}
+			&--team::before {
+				@include colored-line(c.$red);
+			}
+			&--karma::before {
+				@include colored-line(c.$orange);
+			}
+			&--calculator::before {
+				@include colored-line(c.$blue);
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	main {
+		.heading {
+            width: 525px;
+			h1 {
+				font-size: 3.75rem;
+			}
+			h2 {
+				font-size: 3.75rem;
+			}
+		}
+		.container {
+            flex-direction: row;
+            flex-wrap: wrap;
+            &__card {
+                margin: 0 auto;
+            }
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	main {
+		.container {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			gap: 20px;
+			&__card {
+				margin-bottom: 0;
+				transform: scale(1);
+				&--supervisor {
+					grid-column: 1 / 2;
+					grid-row: 1 / 5;
+				}
+				&--team {
+					grid-column: 2 / 3;
+					grid-row: 1 / 3;
+				}
+				&--karma {
+					grid-column: 2 / 3;
+					grid-row: 3 / 5;
+				}
+				&--calculator {
+					grid-column: -1 / -2;
+					grid-row: 1 / 5;
+				}
+			}
+		}
+	}
+}
